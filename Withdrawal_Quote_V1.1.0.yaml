@@ -1,8 +1,8 @@
 openapi: 3.1.0
 info:
   title: Annuity Withdrawal Quote API
-  version: 1.0.0
-  description: >
+  version: 1.1.0
+  description: > 
     A single, standardized quote endpoint for annuity withdrawal transactions.
     The request mirrors the consolidated withdrawal submission payload shape.
     The quote response returns computed charges, taxes, and net disbursement amounts.
@@ -11,7 +11,7 @@ info:
     url: https://opensource.org/licenses/MIT 
 
 paths:
-  /v1/policies/{policyNumber}/withdrawals/full-surrender/quote:
+  /v1/policies/{policyNumber}/withdrawals/full-surrender/quotes:
     get:
       operationId: getFullSurrenderQuote
       tags:
@@ -36,7 +36,6 @@ paths:
                       requestId: '4b2c0e61-7c30-4a6e-9f88-7a9dfc3c9c21'
                       requestTimestamp: '2025-12-29T10:15:00Z'
                       associatedFirmId: 'FIRM123'
-                      nsccParticipantId: 'NSCC777'
                     correlationId: '6f2f9f58-7edb-4d53-9e58-9a9608f1c8b0'
                     status: 'SUCCESS'
                     errors: []
@@ -95,77 +94,23 @@ paths:
                       paymentForm: 'DTCC'
                       allocationPercentage: 100
 
+        '400': { $ref: '#/components/responses/BadRequestError' }
+        '401': { $ref: '#/components/responses/UnauthorizedError' }
+        '403': { $ref: '#/components/responses/ForbiddenError' }
+        '404': { $ref: '#/components/responses/NotFoundError' }
+        '405': { $ref: '#/components/responses/MethodNotAllowedError' }
+        '406': { $ref: '#/components/responses/NotAcceptableError' }
+        '409': { $ref: '#/components/responses/ConflictError' }
+        '413': { $ref: '#/components/responses/PayloadTooLargeError' }
+        '415': { $ref: '#/components/responses/UnsupportedMediaTypeError' }
+        '422': { $ref: '#/components/responses/UnprocessableEntityError' }
+        '429': { $ref: '#/components/responses/TooManyRequestsError' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+        '502': { $ref: '#/components/responses/BadGatewayError' }
+        '503': { $ref: '#/components/responses/ServiceUnavailableError' }
+        '504': { $ref: '#/components/responses/GatewayTimeoutError' }
 
-        '400':
-          description: Validation error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '422':
-          description: Unprocessable Entity
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '429':
-          description: Too Many Requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '502':
-          description: Bad Gateway
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '503':
-          description: Service Unavailable
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '504':
-          description: Gateway Timeout
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      security:
-        - oauth2: [withdrawal.read]
-
-  /v1/policies/{policyNumber}/withdrawals/one-time-partials/quote:
+  /v1/policies/{policyNumber}/withdrawals/one-time-partials/quotes:
     get:
       tags: [Withdrawal Quote]
       operationId: getWithdrawalQuote
@@ -190,7 +135,6 @@ paths:
                       requestId: '8a7b7f40-13c4-4a5b-9f87-8a8d70a9a6a1'
                       requestTimestamp: '2025-12-29T10:20:00Z'
                       associatedFirmId: 'FIRM123'
-                      nsccParticipantId: 'NSCC777'
                     correlationId: 'f2c66ce2-9a0f-45e0-a89b-98f1f0c23e0d'
                     status: 'SUCCESS'
                     errors: []
@@ -275,7 +219,6 @@ paths:
                       requestId: '7d37a62f-3a9b-46b8-a43d-2ad4c7d9f0c4'
                       requestTimestamp: '2025-12-29T10:40:00Z'
                       associatedFirmId: 'FIRM123'
-                      nsccParticipantId: 'NSCC777'
                     correlationId: '8a0e6cc6-0a58-4b5e-8b21-7c4d62b9a7f3'
                     status: 'SUCCESS'
                     errors: []
@@ -342,86 +285,23 @@ paths:
                       paymentForm: 'DTCC'
                       allocationPercentage: 100
 
-        '400':
-          description: Validation error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '422':
-          description: Unprocessable Entity
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '429':
-          description: Too Many Requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '502':
-          description: Bad Gateway
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '503':
-          description: Service Unavailable
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '504':
-          description: Gateway Timeout
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      security:
-        - oauth2: [withdrawal.read]
+        '400': { $ref: '#/components/responses/BadRequestError' }
+        '401': { $ref: '#/components/responses/UnauthorizedError' }
+        '403': { $ref: '#/components/responses/ForbiddenError' }
+        '404': { $ref: '#/components/responses/NotFoundError' }
+        '405': { $ref: '#/components/responses/MethodNotAllowedError' }
+        '406': { $ref: '#/components/responses/NotAcceptableError' }
+        '409': { $ref: '#/components/responses/ConflictError' }
+        '413': { $ref: '#/components/responses/PayloadTooLargeError' }
+        '415': { $ref: '#/components/responses/UnsupportedMediaTypeError' }
+        '422': { $ref: '#/components/responses/UnprocessableEntityError' }
+        '429': { $ref: '#/components/responses/TooManyRequestsError' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+        '502': { $ref: '#/components/responses/BadGatewayError' }
+        '503': { $ref: '#/components/responses/ServiceUnavailableError' }
+        '504': { $ref: '#/components/responses/GatewayTimeoutError' }
 
 components:
-  securitySchemes:
-    oauth2:
-      type: oauth2
-      flows:
-        clientCredentials:
-          tokenUrl: https://auth.your-company-domain.com/oauth2/token
-          scopes:
-            withdrawal.write: Submit one-time withdrawals
-            withdrawal.read: Read one-time withdrawals
-
   parameters:
       PolicyNumber:
         name: policyNumber
@@ -450,7 +330,99 @@ components:
         schema:
           type: string
           maxLength: 100  
-
+  responses:
+    BadRequestError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnauthorizedError:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ForbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFoundError:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    MethodNotAllowedError:
+      description: Method Not Allowed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotAcceptableError:
+      description: Not Acceptable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ConflictError:
+      description: |
+        A transaction for this policy is already in progress or an equivalent request has already been accepted.
+        Re-submitting the same transaction while it is in-flight will be rejected to prevent duplicate processing.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    PayloadTooLargeError:
+      description: Payload Too Large
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnsupportedMediaTypeError:
+      description: Unsupported Media Type
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntityError:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequestsError:
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadGatewayError:
+      description: Bad Gateway
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServiceUnavailableError:
+      description: Service Unavailable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    GatewayTimeoutError:
+      description: Gateway Timeout
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     RequestMetadata:
       type: object
@@ -466,10 +438,6 @@ components:
           type: string
           minLength: 1
           maxLength: 65
-        nsccParticipantId:
-          type: string
-          maxLength: 100
-
     FullSurrenderQuoteResponse:
       type: object
       required:
@@ -502,6 +470,7 @@ components:
           format: date
         cusip:
           type: string
+          minLength: 9
           maxLength: 9
           pattern: '^[0-9]{3}[A-Z0-9]{5}[0-9]$'
           description: unique identification code. Optional; REQUIRED only when policyNumber is not globally unique.
@@ -598,6 +567,7 @@ components:
           format: date
         cusip:
           type: string
+          minLength: 9
           maxLength: 9
           pattern: '^[0-9]{3}[A-Z0-9]{5}[0-9]$'
           description: unique identification code. Optional; REQUIRED only when policyNumber is not globally unique.
@@ -1050,15 +1020,59 @@ components:
     Error:
       type: object
       properties:
+        httpStatus:
+          type: integer
+          description: HTTP status code associated with this error
+          minimum: 400
+          maximum: 599
         code:
           type: string
+          description: |
+            A structured error code that uniquely identifies the type of error. This can follow a hierarchical format:
+            - `<domain>`: The logical domain (e.g., "gateway")
+            - `<category>`: The error category (e.g., "client" or "server")
+            - `<subcategory>`: A specific error identifier (e.g., "badrequest", "timeout")
+          pattern: "^[a-zA-Z]+\\.[a-zA-Z]+\\.[a-zA-Z]+$"
+        timestamp:
+          type: string
+          format: date-time
+          description: Time when the error occurred
         message:
           type: string
+          description: Technical message with specific error details for developers identify the type of error quickly.
+        userMessage:
+          type: string
+          description: End-user readable message to describe the error in simple terms.
         correlationId:
           type: string
+          description: Unique identifier to correlate the error to its corresponding request. This correlationId will be used for debugging and monitoring.
+          maxLength: 100
+        validationErrors:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Name of the field on which error has occurred
+              location:
+                type: string
+                description: The specific location where the error occured.
+              reason:
+                type: string
+                description: Details about why the error occurred
+        businessErrors:
+          type: array
+          description: Logical business rule violations or decision failures related to business logic or rules
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                description: Code to classify the business error & Identifies the type of business rule or decision failure.
+              message:
+                type: string
+                description: Why the business error occurred / Specific business rule violation
       required:
         - code
         - message
-
-security:
-  - oauth2: [withdrawal.read]
