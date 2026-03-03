@@ -1,8 +1,8 @@
 
-# IRI One-Time Withdrawal Inquiry API
+# IRI One-Time Withdrawal Quote API
 
 ## Overview
-This document defines the **One-Time Withdrawal Inquiry** transaction as part of the broader IRI Digital First transformation effort. The transaction supports inquiry requests related to withdrawal eligibility, available amounts, tax considerations, and supporting data required prior to performing a withdrawal transaction (Partial Withdrawal, Full Surrender, or One-Time RMD).
+This document defines the **One-Time Withdrawal Quote** transaction as part of the broader IRI Digital First transformation effort. The transaction supports quote requests related to withdrawal eligibility, available amounts, tax considerations, and supporting data required prior to performing a withdrawal transaction (Partial Withdrawal, Full Surrender, or One-Time RMD).
 
 The initiative modernizes legacy XML/SOAP-based In-Force Transactions (IFT) into RESTful APIs for secure, scalable, and interoperable processing. It leverages industry standards and provides a unified approach for carriers, distributors, and solution providers.
 
@@ -10,12 +10,12 @@ The initiative modernizes legacy XML/SOAP-based In-Force Transactions (IFT) into
 
 ## Business Case
 ### Problem Statement
-- Legacy inquiry processes depend on aging XML/SOAP interfaces that lack modern integration patterns.
-- There is no standardized industry-wide inquiry format, leading to inconsistent integrations.
+- Legacy quote processes depend on aging XML/SOAP interfaces that lack modern integration patterns.
+- There is no standardized industry-wide quote format, leading to inconsistent integrations.
 - Modern REST APIs enable real-time data access, reduced friction, and faster integration.
 
 ### Objectives
-- Provide a consistent inquiry mechanism for all one-time withdrawal scenarios.
+- Provide a consistent quote mechanism for all one-time withdrawal scenarios.
 - Enable pre-transaction validation to reduce downstream failures.
 - Improve integration velocity and support modern security standards.
 - Deliver predictable JSON response structures aligned with Digital First architecture.
@@ -24,30 +24,30 @@ The initiative modernizes legacy XML/SOAP-based In-Force Transactions (IFT) into
 - RESTful API with JSON input/output.
 - Unified request schema with correlationId and firm/participant identifiers.
 - Standardized response structures: available amounts, charges, tax guidance, supporting documents.
-- Alignment with IRI OpenAPI 3.x documentation.
+- Alignment with IRI OpenAPI 3.1.x documentation.
 - Conditional validation based on withdrawal type.
 - Data Dictionary for field-level definitions and code lists.
 
 ---
 
-## Supported Inquiry Types
-One-Time Withdrawal Inquiry supports eligibility and informational checks across:
+## Supported Quotes Types
+One-Time Withdrawal Quote supports eligibility and informational checks across:
 
-### 1. Partial Withdrawal Eligibility Inquiry
+### 1. Partial Withdrawal Eligibility quote
 Used to determine:
 - Available amounts
 - Fund-level withdrawable values
 - Pending transactions
 - Charges or restrictions
 
-### 2. Full Surrender Inquiry
+### 2. Full Surrender Quote
 Provides:
 - Total surrender value
 - Applicable charges
 - Taxable implications
 - Required forms or review indicators
 
-### 3. One-Time RMD Inquiry
+### 3. One-Time RMD Quote
 Determines:
 - RMD tax year requirements
 - RMD eligible amounts
@@ -59,20 +59,20 @@ Determines:
 ## Schema Overview
 The schema generally includes:
 
-- **Root Attributes:** `correlationId`, `effectiveDate`, `associatedFirmId`, `nsccParticipantId`, `inquiryType`
-- **Contract Details:** contractNumber, productType, lineOfBusiness
-- **Producer Info:** producerNumber, npn, crdNumber
-- **Requested Information:** inquiryCategory (AMOUNT, ELIGIBILITY, TAX, ALL)
-- **Parties:** parties[]
-- **Fund Details (if applicable):** fundId, fundName, balance, restrictions
-- **RMD Inquiry Fields:** rmdTaxYear, rmdPriorYearEndValue, spouseDateOfBirth (optional)
-- **Charges & Fees:** chargeTypes, waiverIndicators, explanations
+- **Root Attributes:** status, errors, policyNumber, effectiveDate, cusip, freeWithdrawalAmount, tenPercentOfPurchasePayments, freeAmountGain, freeAmountPremium
+- **transactionAmounts:** appliedAmount, taxableAmount, totalChargeAmount, totalTaxWithheldAmount, netPaymentAmount, disbursementType
+- **Parties:** individual/entity identity, relationships, paymentForm, allocationPercentage, bank, address
+- **RMD Info Fields:** rmdTaxYear, rmdPriorYearEndValue, rmdSpouseDoB, rmdRequestedAmount, rmdAgeAtDistribution, rmdCalculationMethod
+- **Charges & Fees:** chargeType, chargeCategory, isChargeWaived, chargeWaiverReason, chargeAmount, loanDeduction
+- **Tax Qualification fields:** isTefraApplicable, isTemraApplicable, tefraValue, temraValue, isirc72qPenaltyApplied, taxablePortionRule (LIFO/FIFO)
+- **PayeeOrBeneficiary:** taxId, paymentForm, allocationPercentage, disbursementAmount
 
-Each inquiry response delivers structured information supporting the corresponding withdrawal workflow.
+
+Each quote response delivers structured information supporting the corresponding withdrawal workflow.
 
 ---
 
-# Error Schema Overview
+# Response Schema Overview
 
 All API operations—across synchronous and asynchronous processing models—adhere to a unified **Error schema**. This ensures consistent error handling, predictable integration behavior, and standardized troubleshooting across all transaction types.
 
@@ -80,10 +80,6 @@ All API operations—across synchronous and asynchronous processing models—adh
 
 ### Synchronous APIs
 - Return **HTTP 200** for successful, completed processing.
-
-### Asynchronous APIs
-- Return **HTTP 202** to acknowledge the request has been accepted for processing but not yet completed.
-
 ---
 
 ## Standard Error Schema
@@ -93,7 +89,6 @@ Every error response—regardless of transaction type—includes:
 - A **timestamp** of when the error was generated
 - A developer‑focused **technical message** (`message`)
 - A safe, user‑friendly **userMessage**
-- A **correlationId** for cross‑system tracing
 - Optional **field‑level** or **rule‑level** error collections
 
 ---
@@ -102,11 +97,11 @@ Every error response—regardless of transaction type—includes:
 
 | Field | Description |
 |-------|-------------|
+| **correlationId** | Carries forward the inbound request’s correlation ID header to enable end‑to‑end traceability. |
 | **httpStatus** | Numeric HTTP status code (400–599) representing the type and severity of the failure. |
 | **code** | Structured identifier in the enforced format: `domain.category.subcategory`. Enables machine‑readable error handling. |
 | **message** | Technical diagnostic detail for developers, logs, or support teams. |
 | **userMessage** | End‑user‑friendly explanation, safe to show in portals or consumer‑facing apps. |
-| **correlationId** | Carries forward the inbound request’s correlation ID header to enable end‑to‑end traceability. |
 | **validationErrors** (optional) | Array describing field‑level validation issues (e.g., missing required fields, incorrect formats). |
 | **businessErrors** (optional) | Array describing domain/business rule violations; each entry requires its own code and message. |
 
@@ -123,7 +118,7 @@ This standardized error structure ensures:
 ---
 
 ## OpenAPI Specs
-Unified Swagger documentation for this inquiry endpoint is available in the `openapi-specs/` folder.
+Unified Swagger documentation for this quote endpoint is available in the `openapi-specs/` folder.
 
 ---
 
