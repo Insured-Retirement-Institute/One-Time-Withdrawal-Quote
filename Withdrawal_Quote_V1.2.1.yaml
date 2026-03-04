@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Withdrawal Quote API
-  version: 1.2.0
+  version: 1.2.1
   description: >
     A single, standardized **POST** quote endpoint for withdrawal transactions.
   license:
@@ -90,7 +90,6 @@ paths:
                   summary: Full Surrender Quote Response
                   value:
                     status: 'SUCCESS'
-                    errors: []
                     policyNumber: 'POL123456789'
                     effectiveDate: '2026-01-16'
                     cusip: '0275IFOW4'
@@ -385,7 +384,6 @@ paths:
                   summary: Partial One-Time Withdrawal - RMD Quote Response
                   value:
                     status: 'SUCCESS'
-                    errors: []
                     policyNumber: 'POL123456789'
                     effectiveDate: '2026-01-16'
                     cusip: '0275IFOW4'
@@ -464,7 +462,6 @@ paths:
                   summary: Partial One-Time Withdrawal - Specified Withdrawal (Loan Deduction in Charges)
                   value:
                     status: 'SUCCESS'
-                    errors: []
                     policyNumber: 'POL123456789'
                     effectiveDate: '2026-01-16'
                     cusip: '0275IFOW4'
@@ -1241,26 +1238,26 @@ components:
             $ref: '#/components/schemas/Party'
         taxQualification:
           $ref: '#/components/schemas/TaxQualification'
-      oneOf:
-        - description: Success responses may omit errors or include an empty array
-          allOf:
-            - properties:
-                status:
-                  const: SUCCESS
-            - not:
-                required: [errors]
-        - description: Failure responses must include at least one error
-          allOf:
-            - properties:
-                status:
-                  const: FAILURE
-            - required: [errors]
-            - properties:
-                errors:
-                  type: array
-                  minItems: 1
-                  items:
-                    $ref: '#/components/schemas/ErrorItem'
+      allOf:
+        - if:
+            properties:
+              status:
+                const: SUCCESS
+          then:
+            not:
+              required: [errors]
+        - if:
+            properties:
+              status:
+                const: FAILURE
+          then:
+            required: [errors]
+            properties:
+              errors:
+                type: array
+                minItems: 1
+                items:
+                  $ref: '#/components/schemas/ErrorItem'
 
     PartialsWithdrawalQuoteResponse:
       type: object
@@ -1328,26 +1325,26 @@ components:
           $ref: '#/components/schemas/TaxQualification'
         rmdInfo:
           $ref: '#/components/schemas/RmdInfo'
-      oneOf:
-        - description: Success responses may omit errors or include an empty array
-          allOf:
-            - properties:
-                status:
-                  const: SUCCESS
-            - not:
-                required: [errors]
-        - description: Failure responses must include at least one error
-          allOf:
-            - properties:
-                status:
-                  const: FAILURE
-            - required: [errors]
-            - properties:
-                errors:
-                  type: array
-                  minItems: 1
-                  items:
-                    $ref: '#/components/schemas/ErrorItem'
+      allOf:
+        - if:
+            properties:
+              status:
+                const: SUCCESS
+          then:
+            not:
+              required: [errors]
+        - if:
+            properties:
+              status:
+                const: FAILURE
+          then:
+            required: [errors]
+            properties:
+              errors:
+                type: array
+                minItems: 1
+                items:
+                  $ref: '#/components/schemas/ErrorItem'
 
     TransactionAmountsFullSurrender:
       type: object
