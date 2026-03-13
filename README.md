@@ -87,9 +87,8 @@ Every error response—regardless of transaction type—includes:
 - An HTTP status code in the **400–599** range
 - A structured and validated **error code**
 - A **timestamp** of when the error was generated
-- A developer‑focused **technical message** (`message`)
-- A safe, user‑friendly **userMessage**
-- Optional **field‑level** or **rule‑level** error collections
+- A safe, user‑friendly **Message**
+- A **field‑level** or **rule‑level** error collections
 
 ---
 
@@ -100,10 +99,8 @@ Every error response—regardless of transaction type—includes:
 | **correlationId** | Carries forward the inbound request’s correlation ID header to enable end‑to‑end traceability. |
 | **httpStatus** | Numeric HTTP status code (400–599) representing the type and severity of the failure. |
 | **code** | Structured identifier in the enforced format: `domain.category.subcategory`. Enables machine‑readable error handling. |
-| **message** | Technical diagnostic detail for developers, logs, or support teams. |
-| **userMessage** | End‑user‑friendly explanation, safe to show in portals or consumer‑facing apps. |
-| **validationErrors** (optional) | Array describing field‑level validation issues (e.g., missing required fields, incorrect formats). |
-| **businessErrors** (optional) | Array describing domain/business rule violations; each entry requires its own code and message. |
+| **message** | End‑user‑friendly explanation, safe to show in portals or consumer‑facing apps. |
+| **validationErrors** | Array describing domain/business rule violations; each entry requires its own code and message. |
 
 ---
 
