@@ -1,14 +1,19 @@
-
 # IRI One-Time Withdrawal Quote API
 
-## Overview
+> **NOTE:** This repository is for the working group to use while drafting documentation and specifications before they are formally ratified.  Users outside of the working group should not begin implementing solutions based on the content in this repository as it is likely to change without notice.
+
 This document defines the **One-Time Withdrawal Quote** transaction as part of the broader IRI Digital First transformation effort. The transaction supports quote requests related to withdrawal eligibility, available amounts, tax considerations, and supporting data required prior to performing a withdrawal transaction (Partial Withdrawal, Full Surrender, or One-Time RMD).
 
 The initiative modernizes legacy XML/SOAP-based In-Force Transactions (IFT) into RESTful APIs for secure, scalable, and interoperable processing. It leverages industry standards and provides a unified approach for carriers, distributors, and solution providers.
 
----
+## Draft API Specifications
+
+The working group's draft OpenAPI specification is in the [draft-api-specs](./draft-api-specs) directory.  See [README.md](draft-api-specs/README.md) for more details.
 
 ## Business Case
+
+The working group's draft business case documentation is available in this repository. Once the documentation is finalized, it will be formally published on the [IRI DFA Library of Standards](https://www.irionline.org/member-programs/operations-technology/digital-first-library-standards/).
+
 ### Problem Statement
 - Legacy quote processes depend on aging XML/SOAP interfaces that lack modern integration patterns.
 - There is no standardized industry-wide quote format, leading to inconsistent integrations.
@@ -67,7 +72,6 @@ The schema generally includes:
 - **Tax Qualification fields:** isTefraApplicable, isTemraApplicable, tefraValue, temraValue, isirc72qPenaltyApplied, taxablePortionRule (LIFO/FIFO)
 - **PayeeOrBeneficiary:** taxId, paymentForm, allocationPercentage, disbursementAmount
 
-
 Each quote response delivers structured information supporting the corresponding withdrawal workflow.
 
 ---
@@ -114,33 +118,14 @@ This standardized error structure ensures:
 
 ---
 
-## OpenAPI Specs
-Unified Swagger documentation for this quote endpoint is available in the `openapi-specs/` folder.
+## Example Payloads
 
----
+Sample request/response payloads for each quote type, and the data dictionary, are in the [draft-api-specs](./draft-api-specs) directory:
 
-## Change Submissions and Reporting Issues
-- Use the **Issues** tab of the repository to report bugs or enhancement requests.
-- **Security issues** should be reported directly to Katherine Dease at **kdease@irionline.org**.
-- Follow the standards governance workflow on the main page for contribution guidelines.
-
----
-
-## Versioning
-- Uses semantic versioning for all updates.
-- Changes must be documented through commit messages and changelogs.
-
----
-
-## Code of Conduct
-Refer to the repository’s **Code of Conduct** and **Style Guide** for contribution standards.
-
----
-
-## How to Contribute
-- Fork the repository and submit pull requests.
-- Report issues using the **Issues** tab.
-- Join working groups: **hpikus@irionline.org**.
+- [PartialwithdrawalQuote](./draft-api-specs/PartialwithdrawalQuote/)
+- [FullSurrenderQuote](./draft-api-specs/FullSurrenderQuote/)
+- [OneTimeRMDQuote](./draft-api-specs/OneTimeRMDQuote/)
+- [DataDictionary_Withdrawal_Quote_0.2.2.xlsx](./draft-api-specs/DataDictionary_Withdrawal_Quote_0.2.2.xlsx)
 
 ---
 
@@ -148,3 +133,14 @@ Refer to the repository’s **Code of Conduct** and **Style Guide** for contribu
 - **Carrier Business Owner:** digitalfirst@brighthousefinancial.com
 - **Distributor Business Owner:** [contact]
 - **Solution Provider Business Owner:** [contact]
+
+## How to engage, contribute, and give feedback
+- Please contact the business owners or IRI (hpikus@irionline.org) to get added to the working group discussions.
+
+## Change submissions and reporting issues and bugs
+
+Security issues and bugs should be reported directly to Katherine Dease kdease@irionline.org. Issues and bugs can be reported directly within the issues tab of a repository. Change requests should follow the standards governance workflow outlined on the [main page](https://github.com/Insured-Retirement-Institute).
+
+## Code of conduct
+
+See the [Digital-First-Specifications](https://github.com/Insured-Retirement-Institute/Digital-First-Specifications) repository
