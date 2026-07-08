@@ -104,8 +104,7 @@
                 "taxWithholdingType": "FEDERAL",
                 "taxRateToUse": "USEDEFAULTTABLE",
                 "filingStatus": "DEFAULT",
-                "dollar": 5,
-                "exemptions": 0
+                "dollar": 5
             }
         ],
         "charges": [

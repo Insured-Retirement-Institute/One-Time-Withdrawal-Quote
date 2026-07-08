@@ -117,7 +117,6 @@
                 "taxRateToUse": "USEDEFAULTTABLE",
                 "filingStatus": "DEFAULT",
                 "dollar": 5,
-                "exemptions": 0,
                 "taxJurisdiction": "USA"
             }
         ],

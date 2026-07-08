@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Withdrawal Quote API
-  version: 1.2.2
+  version: 1.2.3
   description: >
     A single, standardized **POST** quote endpoint for withdrawal transactions.
   license:
@@ -272,7 +272,6 @@ paths:
                       taxRateToUse: 'USEVALUESENTERED'
                       filingStatus: 'SINGLE'
                       dollar: 15.00
-                      exemptions: 0
                   charges:
                     - chargeType: 'WITHDRAWALCHARGE'
                       isChargeWaived: false
@@ -362,7 +361,6 @@ paths:
                         taxRateToUse: 'USEDEFAULTTABLE'
                         filingStatus: 'DEFAULT'
                         dollar: 5
-                        exemptions: 0
                         taxJurisdiction: 'USA'
                     charges:
                       - chargeType: 'WITHDRAWALCHARGE'
@@ -564,7 +562,7 @@ components:
     CorrelationIdHeader:
       name: correlationId
       in: header
-      required: false
+      required: true
       description: Optional client-supplied identifier to trace the request.
       schema:
         type: string
@@ -572,7 +570,7 @@ components:
     AssociatedFirmId:
       name: associatedFirmId
       in: query
-      required: false
+      required: true
       description: Optional firm/linkage identifier (preferred location per IRI).
       schema:
         type: string
@@ -581,6 +579,7 @@ components:
   headers:
     correlationId:
       description: Correlates this response to requests and downstream logs.
+      required: true
       schema:
         type: string
         maxLength: 100
@@ -775,6 +774,8 @@ components:
       required:
         - effectiveDate
         - allocationOption
+        - nsccParticipantId
+        - cusip
       allOf:
         - if:
             properties:
@@ -865,6 +866,8 @@ components:
           type: boolean
       required:
         - effectiveDate
+        - nsccParticipantId
+        - cusip
 
     TransactionAmountsRequest:
       type: object
@@ -880,7 +883,7 @@ components:
           maximum: 100
         amountType:
           type: string
-          enum: [AMOUNT, PERCENTAGE, MAX, FREEWITHDRAWALAMOUNT, WITHDRAWALUNTILBASIS, EARNINGSONLY]
+          enum: [AMOUNT, PERCENTAGE, MAX, FREEWITHDRAWALAMOUNT, WITHDRAWALUNTILBASIS, EARNINGSONLY, PENALTYFREE, RIDERFREE]
         disbursementType:
           type: string
           enum: [GROSS, NET]
@@ -916,9 +919,11 @@ components:
               required:
                 - requestedAmount
         - if:
-          properties:
-            amountType:
-              enum: [MAX, FREEWITHDRAWALAMOUNT, WITHDRAWALUNTILBASIS, EARNINGSONLY]
+            properties:
+              amountType:
+                enum: [MAX, FREEWITHDRAWALAMOUNT, WITHDRAWALUNTILBASIS, EARNINGSONLY, PENALTYFREE, RIDERFREE]
+            required: 
+              - amountType
           then:
             required: [amountType]
             not:
@@ -986,6 +991,8 @@ components:
     Producer:
       type: object
       description: Information about the producer submitting the request
+      required:
+        - npn
       properties:
         producerNumber:
           type: string
@@ -1150,10 +1157,6 @@ components:
           description: Percentage amount to withhold
           minimum: 0
           maximum: 100
-        exemptions:
-          type: integer
-          minimum: 0
-          maximum: 99
         taxJurisdiction:
           type: string
           maxLength: 50
@@ -1165,6 +1168,14 @@ components:
           required: [dollar]
         - description: Use a percentage for withholding.
           required: [percentage]
+        - description: >
+            No withholding amount required (e.g. taxRateToUse of
+            NOWITHHOLDINGELECTED ,USEDEFAULTTABLE, NOWITHHOLDINGALLOWED). Neither dollar
+            nor percentage is supplied.
+          not:
+            anyOf:
+              - required: [dollar]
+              - required: [percentage]
       allOf:
         - if:
             properties:
@@ -1176,7 +1187,7 @@ components:
 
     FullSurrenderQuoteResponse:
       type: object
-      required: [status, policyNumber, effectiveDate, transactionAmounts]
+      required: [status, policyNumber, effectiveDate, transactionAmounts, cusip]
       properties:
         status:
           type: string
@@ -1261,7 +1272,7 @@ components:
 
     PartialsWithdrawalQuoteResponse:
       type: object
-      required: [status, policyNumber, effectiveDate, transactionAmounts]
+      required: [status, policyNumber, effectiveDate, transactionAmounts, cusip]
       properties:
         status:
           type: string
@@ -1348,7 +1359,7 @@ components:
 
     TransactionAmountsFullSurrender:
       type: object
-      required: [appliedAmount, totalChargeAmount, totalTaxWithheldAmount, netPaymentAmount, disbursementType, disbursementPaymentForm]
+      required: [appliedAmount, totalChargeAmount, totalTaxWithheldAmount, netPaymentAmount, disbursementType]
       properties:
         appliedAmount:
           type: number
@@ -1399,7 +1410,7 @@ components:
       properties:
         amountType:
           type: string
-          enum: [AMOUNT, PERCENTAGE, MAX, FREEWITHDRAWALAMOUNT, WITHDRAWALUNTILBASIS, EARNINGSONLY]
+          enum: [AMOUNT, PERCENTAGE, MAX, FREEWITHDRAWALAMOUNT, WITHDRAWALUNTILBASIS, EARNINGSONLY, PENALTYFREE, RIDERFREE]
         requestedAmount:
           type: number
           minimum: 0
@@ -1435,9 +1446,10 @@ components:
                 required:
                   - requestedAmount
           - if:
-            properties:
-              amountType:
-                enum: [MAX, FREEWITHDRAWALAMOUNT, WITHDRAWALUNTILBASIS, EARNINGSONLY]
+              properties:
+                amountType:
+                  enum: [MAX, FREEWITHDRAWALAMOUNT, WITHDRAWALUNTILBASIS, EARNINGSONLY, PENALTYFREE, RIDERFREE]
+              required: [amountType]
             then:
               required: [amountType]
               not:

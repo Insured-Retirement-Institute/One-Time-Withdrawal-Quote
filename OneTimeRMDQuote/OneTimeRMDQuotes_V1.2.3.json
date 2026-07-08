@@ -133,8 +133,7 @@
                 "taxWithholdingType": "FEDERAL",
                 "taxRateToUse": "USEVALUESENTERED",
                 "filingStatus": "SINGLE",
-                "dollar": 10,
-                "exemptions": 0
+                "dollar": 10
             }
         ],
         "charges": [
