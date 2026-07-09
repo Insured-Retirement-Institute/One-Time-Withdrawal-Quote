@@ -1,0 +1,119 @@
+{
+    "method": "POST",
+    "url": "https://api.your-company-domain.com/v1/policies/ABC12345/withdrawals/full-surrenders/quote",
+    "headers": {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": "Bearer <token>",
+        "correlationId": "deadbeef-aaaa-bbbb-cccc-ddddeeeeffff"
+    },
+        "query": {
+        "associatedFirmId": "DTCC"
+    },
+    "body": {
+        "effectiveDate": "2025-02-01",
+        "nsccParticipantId": "NSCC999",
+        "cusip": "0275IFOW4",
+        "producer": {
+            "producerNumber": "PROD999",
+            "npn": "9876543210",
+            "crdNumber": "1234567890"
+        },
+        "transactionAmounts": {
+            "disbursementType": "NET",
+            "disbursementPaymentForm": "EFT"
+        },
+        "payeeOrBeneficiary": [
+            {
+                "paymentForm": "EFT",
+                "allocationPercentage": 100,
+                "party": {
+					"firstName": "Taylor",
+					"middleName": "A",
+					"lastName": "Johnson",
+					"type": "individual",
+					"taxId": "123456789"
+                },
+                "bank": {
+                    "bankId": "Bank_FS",
+                    "nameOnAccount": "Taylor Johnson",
+                    "accountStatus": "ACTIVEBANKACCOUNT",
+                    "accountType": "CHECKING",
+                    "accountNumber": "9876543210",
+                    "routingNumber": "987654321",
+                    "branchName": "Central Branch"
+                },
+                "address": {
+                    "addressId": "Addr_FS",
+                    "addressType": "RESIDENCE",
+                    "addressLine1": "200 Main St",
+                    "addressLine2": "Suite 10",
+                    "addressLine3": "Floor 2",
+                    "city": "New York",
+                    "state": "NY",
+                    "zipCode": "10001",
+                    "zipCodeExtension": "0001",
+                    "country": "US"
+                }
+            }
+        ],
+        "parties": [
+            {
+			  "taxId": "123456789",
+			  "firstName": "Taylor",
+			  "middleName": "A",
+			  "lastName": "Johnson",
+			  "type": "individual",
+			  "relationships": [
+				"owner"
+			  ],
+			  "paymentForm": "EFT",
+			  "allocationPercentage": 100,
+                "bank": {
+                    "bankId": "Bank_FS",
+                    "nameOnAccount": "Taylor Johnson",
+                    "accountStatus": "ACTIVEBANKACCOUNT",
+                    "accountType": "CHECKING",
+                    "accountNumber": "9876543210",
+                    "routingNumber": "987654321",
+                    "branchName": "Central Branch"
+                },
+                "address": {
+                    "addressId": "Addr_FS",
+                    "addressType": "RESIDENCE",
+                    "addressLine1": "200 Main St",
+                    "addressLine2": "Suite 10",
+                    "addressLine3": "Floor 2",
+                    "city": "New York",
+                    "state": "NY",
+                    "zipCode": "10001",
+                    "zipCodeExtension": "0001",
+                    "country": "US"
+                }
+            }
+        ],
+        "taxWithholdingInstructions": [
+            {
+                "party": {
+					"firstName": "Taylor",
+					"middleName": "A",
+					"lastName": "Johnson",
+					"type": "individual",
+					"taxId": "123456789"
+                },
+                "taxWithholdingType": "FEDERAL",
+                "taxRateToUse": "USEDEFAULTTABLE",
+                "filingStatus": "DEFAULT",
+                "dollar": 5
+            }
+        ],
+        "charges": [
+            {
+                "chargeType": "SURRENDERCHARGE",
+                "isChargeWaived": true,
+                "chargeWaiverReason": "AGE_59_5"
+            }
+        ],
+        "isOverride": true
+    }
+}
