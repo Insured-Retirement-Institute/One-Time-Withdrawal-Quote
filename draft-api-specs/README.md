@@ -23,10 +23,35 @@ All API specification MUST use [SemVer 2.0.0](https://semver.org/) version strin
 * IRI will ratify the final version number. Working group target numbers are proposals; IRI MAY require a different version if the semver classification is incorrect (e.g. a breaking change labeled as minor).
 * Multiple working drafts targeting different versions MAY coexist (e.g. a 1.1.0-draft.2 adding features alongside a 2.0.0-draft.1 introducing a breaking redesign).
 
+## Current drafts
+
+| Version | OpenAPI spec | Description |
+|---------|--------------|-------------|
+| **1.0.0-rc.1** | [One-Time-Withdrawal-Quote_OpenAPI_1.0.0-rc.1.yaml](One-Time-Withdrawal-Quote_OpenAPI_1.0.0-rc.1.yaml) | Historical working-group snapshot (renamed from pre-ratification **0.2.2**). Superseded by ratified **1.0.0** in [Digital-First-Specifications](https://github.com/Insured-Retirement-Institute/Digital-First-Specifications). |
+| **2.0.0-draft.1** | [One-Time-Withdrawal-Quote_OpenAPI_2.0.0-draft.1.yaml](One-Time-Withdrawal-Quote_OpenAPI_2.0.0-draft.1.yaml) | **2.0** line baseline — copy of ratified **1.0.0** as published in Digital-First-Specifications. |
+| **2.0.0-rc.1** | [One-Time-Withdrawal-Quote_OpenAPI_2.0.0-rc.1.yaml](One-Time-Withdrawal-Quote_OpenAPI_2.0.0-rc.1.yaml) | Breaking schema/validation changes on top of published **1.0.0**. Candidate for next ratification. |
+
+Compare **2.0.0-draft.1** → **2.0.0-rc.1** to see the proposed 2.0 breaking changes.
+
 ## Supporting documentation
 
-- [One-Time-Withdrawal-Quote_OpenAPI_0.2.2.yaml](One-Time-Withdrawal-Quote_OpenAPI_0.2.2.yaml)
-- [DataDictionary_Withdrawal_Quote_0.2.2.xlsx](DataDictionary_Withdrawal_Quote_0.2.2.xlsx)
-- [Partial Withdrawal quote examples](PartialwithdrawalQuote/)
-- [Full Surrender quote examples](FullSurrenderQuote/)
-- [One-Time RMD quote examples](OneTimeRMDQuote/)
+### 1.0.0-rc.1 (historical pre-ratification snapshot)
+
+- [Data dictionary](DataDictionary_Withdrawal_Quote_1.0.0-rc.1.xlsx)
+- [Partial Withdrawal quote examples](PartialwithdrawalQuote/OneTimePartialWithdrawalQuotes_1.0.0-rc.1.json)
+- [Full Surrender quote examples](FullSurrenderQuote/FullSurrenderQuotes_1.0.0-rc.1.json)
+- [One-Time RMD quote examples](OneTimeRMDQuote/OneTimeRMDQuotes_1.0.0-rc.1.json)
+
+### 2.0.0-draft.1 (published 1.0.0 baseline)
+
+- [Data dictionary](DataDictionary_Withdrawal_Quote_2.0.0-draft.1.xlsx)
+- [Partial Withdrawal quote examples](PartialwithdrawalQuote/OneTimePartialWithdrawalQuotes_2.0.0-draft.1.json)
+- [Full Surrender quote examples](FullSurrenderQuote/FullSurrenderQuotes_2.0.0-draft.1.json)
+- [One-Time RMD quote examples](OneTimeRMDQuote/OneTimeRMDQuotes_2.0.0-draft.1.json)
+
+### 2.0.0-rc.1
+
+- [Data dictionary](DataDictionary_Withdrawal_Quote_2.0.0-rc.1.xlsx) (pending update to reflect schema changes)
+- [Partial Withdrawal quote examples](PartialwithdrawalQuote/OneTimePartialWithdrawalQuotes_2.0.0-rc.1.json)
+- [Full Surrender quote examples](FullSurrenderQuote/FullSurrenderQuotes_2.0.0-rc.1.json)
+- [One-Time RMD quote examples](OneTimeRMDQuote/OneTimeRMDQuotes_2.0.0-rc.1.json)
