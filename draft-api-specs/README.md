@@ -49,9 +49,4 @@ Compare **2.0.0-draft.1** → **2.0.0-rc.1** to see the proposed 2.0 breaking ch
 - [Full Surrender quote examples](FullSurrenderQuote/FullSurrenderQuotes_2.0.0-draft.1.json)
 - [One-Time RMD quote examples](OneTimeRMDQuote/OneTimeRMDQuotes_2.0.0-draft.1.json)
 
-### 2.0.0-rc.1
 
-- [Data dictionary](DataDictionary_Withdrawal_Quote_2.0.0-rc.1.xlsx) (pending update to reflect schema changes)
-- [Partial Withdrawal quote examples](PartialwithdrawalQuote/OneTimePartialWithdrawalQuotes_2.0.0-rc.1.json)
-- [Full Surrender quote examples](FullSurrenderQuote/FullSurrenderQuotes_2.0.0-rc.1.json)
-- [One-Time RMD quote examples](OneTimeRMDQuote/OneTimeRMDQuotes_2.0.0-rc.1.json)

@@ -122,9 +122,7 @@ This standardized error structure ensures:
 
 Sample request/response payloads for each quote type, and the data dictionary, are in the [draft-api-specs](./draft-api-specs) directory. See [draft-api-specs/README.md](draft-api-specs/README.md) for the current draft versions:
 
-- **2.0.0-rc.1** — latest candidate (breaking changes on top of published **1.0.0**)
-- **2.0.0-draft.1** — **2.0** line baseline, identical to ratified **1.0.0**
-- **1.0.0-rc.1** — historical pre-ratification snapshot (superseded by published **1.0.0**)
+
 
 ---
 
