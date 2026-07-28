@@ -120,12 +120,11 @@ This standardized error structure ensures:
 
 ## Example Payloads
 
-Sample request/response payloads for each quote type, and the data dictionary, are in the [draft-api-specs](./draft-api-specs) directory:
+Sample request/response payloads for each quote type, and the data dictionary, are in the [draft-api-specs](./draft-api-specs) directory. See [draft-api-specs/README.md](draft-api-specs/README.md) for the current draft versions:
 
 - [PartialwithdrawalQuote](./draft-api-specs/PartialwithdrawalQuote/)
 - [FullSurrenderQuote](./draft-api-specs/FullSurrenderQuote/)
 - [OneTimeRMDQuote](./draft-api-specs/OneTimeRMDQuote/)
-- [DataDictionary_Withdrawal_Quote_0.2.2.xlsx](./draft-api-specs/DataDictionary_Withdrawal_Quote_0.2.2.xlsx)
 
 ---
 
