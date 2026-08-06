@@ -28,10 +28,9 @@ All API specification MUST use [SemVer 2.0.0](https://semver.org/) version strin
 | Version | OpenAPI spec | Description |
 |---------|--------------|-------------|
 | **1.0.0-rc.1** | [One-Time-Withdrawal-Quote_OpenAPI_1.0.0-rc.1.yaml](One-Time-Withdrawal-Quote_OpenAPI_1.0.0-rc.1.yaml) | Historical working-group snapshot (renamed from pre-ratification **0.2.2** / **1.2.2**). Superseded by ratified **1.0.0** in [Digital-First-Specifications](https://github.com/Insured-Retirement-Institute/Digital-First-Specifications). |
-| **2.0.0-draft.1** | _Available in git history_ | **2.0** line baseline — copy of ratified **1.0.0** as published in Digital-First-Specifications. Includes some non-structural description changes made after **1.0.0-rc.1**|
-| **2.0.0-rc.1** | [One-Time-Withdrawal-Quote_OpenAPI_2.0.0-rc.1.yaml](One-Time-Withdrawal-Quote_OpenAPI_2.0.0-rc.1.yaml) | Breaking schema/validation changes on top of published **1.0.0** from the files originally versioned as **1.2.3**. Candidate for next ratification. |
-
-Compare **2.0.0-draft.1** → **2.0.0-rc.1** in the git version history to see the proposed 2.0 breaking changes.
+| **2.0.0-draft.1** | _Available in git history_ | Earlier **2.0** baseline snapshot of published **1.0.0** (pre-description enhancements). |
+| **2.0.0-rc.1** | _Available in git history_ | Breaking schema/validation changes from the files originally versioned as **1.2.3**, including making **cusip** required on request/response. |
+| **2.0.0-rc.2** | [One-Time-Withdrawal-Quote_OpenAPI_2.0.0-rc.2.yaml](One-Time-Withdrawal-Quote_OpenAPI_2.0.0-rc.2.yaml) | Rebased on the currently published **1.0.0** in Digital-First-Specifications (`onetimewithdrawalquote1.yaml`), with the **2.0** breaking changes from **rc.1**, and **cusip** optional (aligned with published **1.0.0**). Candidate for next ratification. |
 
 ## Supporting documentation
 
@@ -42,14 +41,13 @@ Compare **2.0.0-draft.1** → **2.0.0-rc.1** in the git version history to see t
 - [Full Surrender quote examples](FullSurrenderQuote/FullSurrenderQuotes_1.0.0-rc.1.json)
 - [One-Time RMD quote examples](OneTimeRMDQuote/OneTimeRMDQuotes_1.0.0-rc.1.json)
 
-### 2.0.0-draft.1 (published 1.0.0 baseline)
+### 2.0.0-draft.1 / 2.0.0-rc.1
 
 _Available in git history_
 
-### 2.0.0-rc.1
+### 2.0.0-rc.2
 
-- [Data dictionary](DataDictionary_Withdrawal_Quote_2.0.0-rc.1.xlsx)
-- [Partial Withdrawal quote examples](PartialwithdrawalQuote/OneTimePartialWithdrawalQuotes_2.0.0-rc.1.json)
-- [Full Surrender quote examples](FullSurrenderQuote/FullSurrenderQuotes_2.0.0-rc.1.json)
-- [One-Time RMD quote examples](OneTimeRMDQuote/OneTimeRMDQuotes_2.0.0-rc.1.json)
-
+- [Data dictionary](DataDictionary_Withdrawal_Quote_2.0.0-rc.2.xlsx)
+- [Partial Withdrawal quote examples](PartialwithdrawalQuote/OneTimePartialWithdrawalQuotes_2.0.0-rc.2.json)
+- [Full Surrender quote examples](FullSurrenderQuote/FullSurrenderQuotes_2.0.0-rc.2.json)
+- [One-Time RMD quote examples](OneTimeRMDQuote/OneTimeRMDQuotes_2.0.0-rc.2.json)
